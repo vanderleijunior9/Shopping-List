@@ -1,4 +1,4 @@
-SHOPPING LIST PROJECT 
+#SHOPPING LIST
 
 FEATURES: 
     (Add item to the list)
