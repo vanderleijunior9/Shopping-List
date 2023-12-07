@@ -87,8 +87,8 @@ function getItemsFromStorage () {
    return itemsFromStorage;
 }
 
-function onClickItem {
-   if (e.target.parentElement.classList.contains('remove-item')){
+function onClickItem(e) {
+   if (e.target.parentElement.classList.contains('remove-item')) {
       removeItem(e.target.parentElement.parentElement);
    }
 }
