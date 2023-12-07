@@ -4,13 +4,6 @@ const itemList = document.getElementById('item-list');
 const clearBtn = document.getElementById('clear');
 const itemFilter = document.getElementById('filter');
 
-function displayItems() {
-   const itemFromStorage = getItemsFromStorage();
-   itemFromStorage.forEach(item => addItemToDOM(item));
-
-   checkUI();
-}
-
 function createButton (classes) {
    const button = document.createElement('button');
    button.className = classes;
@@ -34,60 +27,20 @@ function onAddItemSubmit(e) {
     alert("Please add an item");
     return;
     }
-    
-    // item to the dom
-    addItemToDOM(NewItem);  
-
-   // item to the storage x`
-    addItemToStorage(NewItem);
-
-    checkUI();
-
-    itemInput.value = '';
-
-    console.log(NewItem);
-}
-
-function addItemToDOM (item) {
-   //create list item
-   const li = document.createElement('li');
-   li.appendChild(document.createTextNode(item));
+    //create list item
+    const li = document.createElement('li');
+    li.appendChild(document.createTextNode(NewItem));
 
    const button = createButton('remove-item btn-link text-red');
    li.appendChild(button);
    
    itemList.appendChild(li);
 
+    checkUI();
 
+    itemInput.value = '';
 }
-
-function addItemToStorage (item) {
-   const itemFromStorage = getItemsFromStorage();
-
-   if (localStorage.getItem('items') === null) {
-      itemFromStorage = [];
-   } else {
-      itemFromStorage = JSON.parse(localStorage.getItem('items'));
-   }
-
-   itemFromStorage.push(item);
-
-   localStorage.setItem('item', JSON.stringify(itemFromStorage));
-}
-
-function getItemsFromStorage () {
-   let itemsFromStorage;
-
-   if (localStorage.getItem('items') === null) {
-      itemsFromStorage = [];
-   } else {
-      itemsFromStorage = JSON.parse(localStorage.getItem('items'));
-   }
-
-   return itemsFromStorage;
-}
-
-function onClickItem(e) {
+function removeItem (e) {
    if (e.target.parentElement.classList.contains('remove-item')) {
       removeItem(e.target.parentElement.parentElement);
    }
@@ -151,14 +104,10 @@ function checkUI () {
 }
 
 // Events Listeners ()
-function init() {
-   itemForm.addEventListener('submit', onAddItemSubmit);
-   itemList.addEventListener('click', onClickItem);
-   clearBtn.addEventListener('click', clearItem);
-   itemFilter.addEventListener('input', filterItems);
-   document.addEventListener('DOMContentLoaded', displayItems);
-   checkUI();
-}
+itemForm.addEventListener('submit', addItem);
+itemList.addEventListener('click', removeItem);
+clearBtn.addEventListener('click', clearItem);
 
+itemFilter.addEventListener('input', filterItems);
 
- init();
+checkUI();
