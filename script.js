@@ -48,7 +48,7 @@ function removeItem (e) {
 
 function removeItem (item) {
    // removing from DOM
-   if (confirm('Are you sure?')) {
+   
       item.remove();
 
 
@@ -57,7 +57,7 @@ function removeItem (item) {
       removeItemFromStorage(item.textContent);
 
       checkUI();
-   }
+   
 }
 
 function removeItemFromStorage(item) {
@@ -69,6 +69,7 @@ function removeItemFromStorage(item) {
 }  
 
 function clearItem(e){
+   e.preventDefault();
    while (itemList.firstChild) {
       itemList.removeChild(itemList.firstChild);
    }
